@@ -20,6 +20,7 @@ pipeline {
         
         stage('Analyze') {
             steps {
+                sh 'ping 172.18.0.5'
                 sh 'mvn sonar:sonar -Dsonar.projectKey=com.mycompany.app:my-app -Dsonar.host.url=http://sonarqube.jenkins:9000 -Dsonar.login=admin -Dsonar.password=admin'
             }
         }
