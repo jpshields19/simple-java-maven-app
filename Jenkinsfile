@@ -30,7 +30,7 @@ pipeline {
             agent {
                 docker {
                     image 'sonarsource/sonar-scanner-cli'
-                    args '-v /var/run/docker.sock:/var/run/docker.sock --entrypoint="" --net jenkins'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock --entrypoint=""'
                 }
             }
             steps {
