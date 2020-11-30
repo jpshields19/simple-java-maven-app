@@ -33,10 +33,11 @@ pipeline {
                     args '-v /var/run/docker.sock:/var/run/docker.sock --entrypoint=""'
                 }
             }
-            script {
-                sh 'docker network ls'
-            }
+            
             steps {
+                script {
+                    sh 'docker network ls'
+                }
                 sh 'sonar-scanner -Dsonar.source=. -Dsonar.projectKey=com.mycompany.app:my-app -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=admin -Dsonar.password=admin'
             }
         }
