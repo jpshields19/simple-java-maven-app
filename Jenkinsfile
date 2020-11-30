@@ -21,7 +21,7 @@ pipeline {
         
         stage('Analyze') {
             docker.image('sonarsource/sonar-scanner-cli').inside('-v /var/run/docker.sock:/var/run/docker.sock --entrypoint="" --net jenkins') {
-                sh '/usr/local/bin/sonar-scanner -Dsonar.projectKey=com.mycompany.app:my-app -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=admin -Dsonar.password=admin'' 
+                sh '/usr/local/bin/sonar-scanner -Dsonar.projectKey=com.mycompany.app:my-app -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=admin -Dsonar.password=admin'
             }
         }
      }
