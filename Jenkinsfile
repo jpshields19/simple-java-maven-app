@@ -20,7 +20,8 @@ pipeline {
         
         stage('Analyze') {
             steps {
-                sh 'mvn sonar:sonar -Dsonar.projectKey=com.mycompany.app:my-app -Dsonar.host.url=sonarqube:9000 -Dsonar.login=admin -Dsonar.password=admin'
+                sh 'docker inspect sonarqube'
+                sh 'mvn sonar:sonar -Dsonar.projectKey=com.mycompany.app:my-app -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=admin -Dsonar.password=admin'
             }
         }
      }
