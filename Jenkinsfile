@@ -9,13 +9,13 @@ pipeline {
         stage('Build') { 
             steps {
                 sh 'mvn -B -DskipTests clean package' 
-                sh './test.sh'
             }
         }
         
         stage('Test') {
             steps {
                 sh 'mvn test'
+                sh 'mvn sonar:sonar -Dsonar.projectKey=com.mycompany.app:my-app -Dsonar.host.url=http://localhost:9000 -Dsonar.login=cada0b0fa6963d76966763b2bcfe75c0bd1b5426'
             }
         }
      }
