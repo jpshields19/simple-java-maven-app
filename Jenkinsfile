@@ -19,16 +19,13 @@ pipeline {
             }
         }
         
-        stage('Analyze') {
-            agent {
-                docker {
-                    image 'sonarsource/sonar-scanner-cli'
-                    args '-v /var/run/docker.sock:/var/run/docker.sock --entrypoint="" --net jenkins'
-                }
-            }
+        stage("build & SonarQube analysis") {
+            agent any
             steps {
-                sh '/usr/local/bin/sonar-scanner -Dsonar.projectKey=com.mycompany.app:my-app -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=admin -Dsonar.password=admin'
+              withSonarQubeEnv('My SonarQube Server') {
+                sh 'mvn clean package sonar:sonar'
+              }
             }
-        }
+          }
      }
 }
