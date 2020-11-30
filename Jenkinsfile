@@ -35,9 +35,6 @@ pipeline {
             }
             
             steps {
-                script {
-                    sh 'docker network ls'
-                }
                 sh 'sonar-scanner -Dsonar.source=. -Dsonar.projectKey=com.mycompany.app:my-app -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=admin -Dsonar.password=admin'
             }
         }
