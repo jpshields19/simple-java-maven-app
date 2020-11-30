@@ -15,7 +15,8 @@ volumes:
 services:
 
   jenkins:
-    image: jenkinsci/blueocean
+    build: .
+    tag: myjenkins-blueocean:1.1
     restart: always
     networks:
       - docker
