@@ -46,7 +46,7 @@ services:
       - DOCKER_TLS_CERTDIR=/certs
 
   sonarqube:
-    build: ./sonar
+    image: sonarqube:7.6-community
     ports:
       - 9000:9000
     networks:
