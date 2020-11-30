@@ -6,6 +6,11 @@ networks:
 volumes:
   jenkins-data:
   jenkins-docker-certs:
+  sonarqube_conf:
+  sonarqube_data:
+  postgresql:
+  postgresql_data:
+  
 
 services:
 
@@ -50,7 +55,7 @@ services:
     ports:
       - 9000:9000
     networks:
-      - jenkins
+      - docker
     environment:
       - sonar.jdbc.url=jdbc:postgresql://sonar-db:5432/sonar
     volumes:
@@ -62,7 +67,7 @@ services:
   sonar-db:
     image: postgres:9.6-alpine
     networks:
-      - jenkins
+      - docker
     environment:
       - POSTGRES_USER=sonar
       - POSTGRES_PASSWORD=sonar
