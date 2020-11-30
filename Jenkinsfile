@@ -15,7 +15,12 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'mvn test'
-                sh 'mvn sonar:sonar -Dsonar.projectKey=com.mycompany.app:my-app -Dsonar.host.url=http://172.18.0.5:9000 -Dsonar.login=cada0b0fa6963d76966763b2bcfe75c0bd1b5426'
+            }
+        }
+        
+        stage('Analyze') {
+            steps {
+                sh 'mvn sonar:sonar -Dsonar.projectKey=com.mycompany.app:my-app -Dsonar.host.url=http:/sonarqube:9000 -Dsonar.login=admin -Dsonar.password=admin'
             }
         }
      }
