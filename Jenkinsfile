@@ -4,12 +4,17 @@ pipeline {
     stages {
         
         stage('Build') {
-            agent any
             steps {
                 script {
-                    sh 'ls'
-                    sh 'docker run --rm -v /root/.m2:/root/.m2 maven:3-alpine mvn -v'
-                    sh 'ls'
+                    sh 'docker build -t docker-maven -f DockerfileMaven .'
+                    sh 'docker run -v /root/.m2:/root/.m2 --name mymaven docker-maven mvn -B -DskipTests clean package'
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                script {
+                    sh 'docker run -v /root/.m2:/root/.m2 --name mymaven docker-maven mvn test'
                 }
             }
         }
