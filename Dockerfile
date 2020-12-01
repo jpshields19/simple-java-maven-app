@@ -16,7 +16,7 @@ RUN curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-c
     
 #RUN usermod -u $HOST_UID jenkins
 #RUN groupmod -g $HOST_GID docker
-#RUN gpasswd -a jenkins docker
+#RUN usermod -aG docker jenkins
 
 USER jenkins
 #RUN jenkins-plugin-cli --plugins blueocean:1.24.3
