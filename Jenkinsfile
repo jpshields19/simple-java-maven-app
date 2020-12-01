@@ -32,7 +32,7 @@ pipeline {
                 sh 'ls'
                 sh 'docker container ps'
                 sh 'docker image ls'
-                sh 'docker network ps'
+                sh 'docker network ls'
             }
         }
         
