@@ -22,7 +22,7 @@ pipeline {
         stage('Analyze') {
             steps {
                 script {
-                    sh '''docker exec mymave mvn sonar:sonar \
+                    sh '''docker exec mymaven mvn sonar:sonar \
                           -Dsonar.projectKey=com.mycompany.app:my-app \
                           -Dsonar.host.url=http://localhost:9000 \
                           -Dsonar.login=89d102c7d196bfdd6a7b14044fb2258f64d60dd0'''
