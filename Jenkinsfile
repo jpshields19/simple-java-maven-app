@@ -6,7 +6,7 @@ pipeline {
             agent {	
                 docker {	
                     image 'maven:3-alpine' 	
-                    args '-v /root/.m2:/root/.m2' 	
+                    args '-v /root/.m2:/root/.m2 -v /var/run/docker.sock:/var/run/docker.sock' 	
                 }	
             }
             steps {
@@ -27,13 +27,9 @@ pipeline {
         }
         
         stage('Docker Test') {
-            agent {
-                docker {
-                    image 'hello-world'
-                    args '-u root -v /var/run/docker.sock:/var/run/docker.sock'
-                }
-            }
+            agent any
             steps {
+                sh 'ls'
                 sh 'docker container ps'
                 sh 'docker image ls'
                 sh 'docker network ps'
