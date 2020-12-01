@@ -32,6 +32,7 @@ pipeline {
                     image 'hello-world'
                     args '-u root -v /var/run/docker.sock:/var/run/docker.sock'
                 }
+            }
             steps {
                 sh 'docker container ps'
                 sh 'docker image ls'
