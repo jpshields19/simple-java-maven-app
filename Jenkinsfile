@@ -11,14 +11,7 @@ pipeline {
                 }
             }
         }
-        stage('Test') {
-            steps {
-                script {
-                    sh 'docker container ps'
-                    sh 'docker exec mymaven mvn test'
-                }
-            }
-        }
+        
         stage('Analyze') {
             steps {
                 script {
