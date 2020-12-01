@@ -7,7 +7,7 @@ pipeline {
             steps {
                 script {
                     sh 'docker build -t docker-maven -f DockerfileMaven .'
-                    sh 'docker run -d -v /root/.m2:/root/.m2 --name mymaven docker-maven mvn -B -DskipTests clean package'
+                    sh 'docker run -d -v /root/.m2:/root/.m2 --name mymaven --network jenkins docker-maven mvn -B -DskipTests clean package'
                 }
             }
         }
