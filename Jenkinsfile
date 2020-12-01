@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     sh 'docker container ps'
-                    sh 'docker run -v /root/.m2:/root/.m2 --name mymaven docker-maven mvn test'
+                    sh 'docker exec mymaven mvn test'
                 }
             }
         }
