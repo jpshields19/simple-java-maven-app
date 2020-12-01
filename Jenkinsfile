@@ -30,6 +30,8 @@ pipeline {
             agent any
             steps {
                 sh 'docker network ls'
+                sh 'docker container ps'
+                sh 'docker image ls'
             }
         }
         
