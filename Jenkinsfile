@@ -6,7 +6,7 @@ pipeline {
             agent {	
                 docker {	
                     image 'maven:3-alpine' 	
-                    args '-v /root/.m2:/root/.m2' 	
+                    args '-v /root/.m2:/root/.m2 --network docker' 	
                 }	
             }
             steps {
@@ -27,11 +27,14 @@ pipeline {
         }
         
         stage('Analyze') {
-            agent any
-            steps {
-                withSonarQubeEnv(credentialsId: '91a691e7c91154d3fee69a05a8fa6e2b10bc82a6') { // You can override the credential to be used
-                  sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
+            agent {
+                docker {
+                    image 'sonarsource/sonar-scanner-cli'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock --entrypoint="" --net jenkins'
                 }
+            }
+            steps {
+                sh 'sonar-scanner -Dsonar.source=. -Dsonar.projectKey=com.mycompany.app:my-app -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=admin -Dsonar.password=admin'
             }
         }
      }
