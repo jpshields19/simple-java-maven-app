@@ -8,7 +8,7 @@ pipeline {
             steps {
                 script {
                     sh 'ls'
-                    sh 'docker run --rm -v /root/.m2:/root/.m2 maven:3-alpine mvn -B -DskipTests clean package'
+                    sh 'docker run --rm -v /root/.m2:/root/.m2 maven:3-alpine mvn -v'
                     sh 'ls'
                 }
             }
