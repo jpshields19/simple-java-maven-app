@@ -29,9 +29,9 @@ pipeline {
         stage('Docker Test') {
             agent any
             steps {
-                sh 'docker network ls'
-                sh 'docker container ps'
-                sh 'docker image ls'
+                script {
+                    sh 'docker run --network jenkins hello-world'
+                }
             }
         }
         
