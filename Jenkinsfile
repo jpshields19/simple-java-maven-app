@@ -27,11 +27,14 @@ pipeline {
         }
         
         stage('Docker Test') {
-            agent any
+            agent {
+                docker {
+                    image 'hello-world'
+                    args '-u root -v /var/run/docker.sock:/var/run/docker.sock'
             steps {
-                script {
-                    sh 'docker run --network jenkins hello-world'
-                }
+                sh 'docker container ps'
+                sh 'docker image ls'
+                sh 'docker network ps'
             }
         }
         
