@@ -3,22 +3,15 @@ pipeline {
     
     stages {
         
-        stage('Build') {
+        stage('Build and Test') {
             steps {
                 script {
                     sh 'docker build -t docker-maven -f DockerfileMaven .'
-                    sh 'docker run -d -v /root/.m2:/root/.m2 --name mymaven --network simple-java-maven-app_jenkins docker-maven mvn -B -DskipTests clean package'
+                    sh 'docker run -d -v /root/.m2:/root/.m2 --name mymaven --network simple-java-maven-app_jenkins docker-maven mvn package'
                 }
             }
         }
-        stage('Test') {
-            steps {
-                script {
-                    sh 'docker container ps'
-                    sh 'docker exec mymaven mvn test'
-                }
-            }
-        }
+        
         stage('Analyze') {
             steps {
                 script {
