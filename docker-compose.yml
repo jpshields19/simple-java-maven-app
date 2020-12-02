@@ -5,7 +5,6 @@ services:
     container_name: 'jenkins-container'
     privileged: true
     build: .
-    user: root
     ports:
       - '8080:8080'
       - '50000:50000'
