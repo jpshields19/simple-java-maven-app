@@ -1,0 +1,77 @@
+version: '3.1'
+
+networks:
+  docker:
+
+volumes:
+  jenkins-data:
+  jenkins-docker-certs:
+  sonarqube_conf:
+  sonarqube_data:
+  postgresql:
+  postgresql_data:
+  
+
+services:
+
+  jenkins:
+    build: .
+    restart: always
+    networks:
+      - docker
+    ports:
+      - 8080:8080
+      - 50000:50000
+    tty: true
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - jenkins-docker-certs:/certs/client:ro
+      - $HOME:/home
+    environment:
+      - DOCKER_HOST=tcp://docker:2376
+      - DOCKER_CERT_PATH=/certs/client
+      - DOCKER_TLS_VERIFY=1
+
+  dind:
+    image: docker:dind
+    privileged: true
+    restart: always
+    networks:
+      docker:
+        aliases: 
+          - docker
+    ports:
+      - 2376:2376
+    tty: true
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - jenkins-docker-certs:/certs/client
+      - $HOME:/home
+    environment:
+      - DOCKER_TLS_CERTDIR=/certs
+
+  sonarqube:
+    image: sonarqube:7.6-community
+    ports:
+      - 9000:9000
+    networks:
+      - docker
+    environment:
+      - sonar.jdbc.url=jdbc:postgresql://sonar-db:5432/sonar
+    volumes:
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+    links:
+      - sonar-db
+
+  sonar-db:
+    image: postgres:9.6-alpine
+    networks:
+      - docker
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+   
