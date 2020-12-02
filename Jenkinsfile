@@ -14,7 +14,6 @@ pipeline {
         
         stage('Analyze') {
             steps {
-                sh 'ping sonarqube'
                 script {
                     sh 'docker run sonarsource/sonar-scanner-cli sonar-scanner \
                       -Dsonar.projectKey=com.mycompany.app:my-app \
