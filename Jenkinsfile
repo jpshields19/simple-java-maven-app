@@ -17,7 +17,6 @@ pipeline {
                 script {
                     sh 'docker run --network simple-java-maven-app_jenkins sonarsource/sonar-scanner-cli sonar-scanner \
                       -Dsonar.projectKey=com.mycompany.app:my-app \
-                      -Dsonar.sources=. \
                       -Dsonar.host.url=http://sonarqube:9000 \
                       -Dsonar.login=admin -Dsonar.password=admin'
                 }
