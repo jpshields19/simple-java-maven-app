@@ -17,7 +17,7 @@ RUN curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-c
 RUN sudo apt install iputils-ping    
 #RUN usermod -u $HOST_UID jenkins
 #RUN groupmod -g $HOST_GID docker
-#RUN usermod -aG docker jenkins
+RUN usermod -aG docker jenkins
 
 USER jenkins
 #RUN jenkins-plugin-cli --plugins blueocean:1.24.3
