@@ -15,10 +15,10 @@ pipeline {
         stage('Analyze') {
             steps {
                 script {
-                    sh 'docker run sonarsource/sonar-scanner-cli sonar-scanner \
+                    sh 'docker run --network simple-java-maven-app_jenkins sonarsource/sonar-scanner-cli sonar-scanner \
                       -Dsonar.projectKey=com.mycompany.app:my-app \
                       -Dsonar.sources=. \
-                      -Dsonar.host.url=http://172.20.0.4:9000 \
+                      -Dsonar.host.url=http://sonarqube:9000 \
                       -Dsonar.login=89d102c7d196bfdd6a7b14044fb2258f64d60dd0'''
                 }
             }
