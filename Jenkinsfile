@@ -7,7 +7,7 @@ pipeline {
             steps {
                 script {
                     sh 'docker build -t docker-maven -f DockerfileMaven .'
-                    sh 'docker run -d -v /root/.m2:/root/.m2 --name mymaven --network simple-java-maven-app_jenkins docker-maven mvn package'
+                    sh 'docker run -v /root/.m2:/root/.m2 --name mymaven --network simple-java-maven-app_jenkins docker-maven mvn package'
                 }
             }
         }
