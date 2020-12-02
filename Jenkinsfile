@@ -19,6 +19,7 @@ pipeline {
                       -Dsonar.projectKey=com.mycompany.app:my-app \
                       -Dsonar.host.url=http://sonarqube:9000 \
                       -Dsonar.sources=. \
+                      -Dsonar.scm.provider=git \
                       -Dsonar.login=admin -Dsonar.password=admin'
                 }
             }
