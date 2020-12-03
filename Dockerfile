@@ -1,7 +1,8 @@
 FROM jenkins/jenkins
 
-ARG HOST_UID=1001
-ARG HOST_GID=999
+ARG USER_ID=1001
+ARG USER_GID=1001
+ARG DOCKER_GROUP_ID=115
 
 USER root
 RUN apt-get -y update && \
@@ -15,9 +16,11 @@ RUN curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-c
     ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
 RUN sudo apt install iputils-ping    
-#RUN usermod -u $HOST_UID jenkins
-#RUN groupmod -g $HOST_GID docker
-RUN usermod -aG docker jenkins
+
+RUN sudo groupmod -g $DOCKER_GROUP_ID docker
+RUN sudo usermod -aG docker jenkins
+RUN sudo groupmod -g $USER_GID jenkins
+RUN sudo usermod -u $USER_ID -g $USER_GID jenkins
 
 USER jenkins
 #RUN jenkins-plugin-cli --plugins blueocean:1.24.3
